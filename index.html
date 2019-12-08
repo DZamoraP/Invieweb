@@ -1,16 +1,13 @@
-<!-- Proximo video nº9 -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <title>Invie - Tus mejores Guitarras!!</title>
     <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css?family=Allerta|Montserrat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/invie.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="css/invie.css">
     <!-- <link rel="stylesheet" media="(max-width: 800px)" href="css/media-querie.css">  -->
-    <link href="https://fonts.googleapis.com/css?family=Allerta|Montserrat&display=swap" rel="stylesheet">
-
 </head>
 <body>
     <!-- http://nathanleon.github.io/invie-nathan/index.html-->
@@ -20,7 +17,6 @@
                 <img src="images/invie.png" srcset="images/invie.png 1x, images/invie2x.png 2x" width="186" height="60" alt="Invie logotipo"> 
             </figure>
             <span class="burguer-button icon-menu" id="burguer-button"></span>
-
             <nav class="menu" id="menu"> <!-- menu -->
                 <ul>
                     <li >
@@ -44,11 +40,16 @@
     <section id="guitarras" class="guitarras contenedor">  <!-- guitarras -->
         <h2>Nuestras Guitarras</h2> <!-- titulo-->
         <!-- insertamos video de youtube  -->
-        <div class="video-responsive-contenedor">
-            <iframe class ="video-resposibe-src" width="560" height="315" src="https://www.youtube.com/embed/R1dW8M4EqYY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div class="video-demo-contenedor">
+            <div class="video-demo">
+                <div class="video-responsive-contenedor">
+                    <iframe class ="video-resposibe-src" width="560" height="315" src="https://www.youtube.com/embed/R1dW8M4EqYY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
         </div>
         <!-- insertamos video de carpeta -->
-        <video src="video/320x240.ogg"></video>  
+        <!-- <video src="video/320x240.ogg"></video>   -->
+
         <article class="guitarra"> <!-- guitarra 1 -->
             <img class="derecha" data-src="images/invie-acustica.png|images/invie-acustica2x.png"  alt="Guitarra Invie Acustica" width="350"/>
             <div class="contenedor-guitarra-a">
@@ -118,8 +119,8 @@
         </div>
     </footer>
     <!-- llamamos a libreria Blazy para cargar imagenes poco a poco.-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/blazy/1.8.2/blazy.min.js"></script>
-
     <script>
         // se crea funcion para ver si pantalla se agranda o achica para usar el ToggleMenu
         var consulta = window.matchMedia('(max-width:500px)');
@@ -127,6 +128,19 @@
 
         var $burguerbutton = document.getElementById('burguer-button');
         var $menu = document.getElementById('menu');
+
+        function toggleMenu(){
+            $menu.classList.toggle('active');
+        };
+        function showMenu(){
+            $menu.classList.add('active');
+        };
+        function hideMenu(){
+            $menu.classList.remove('active');
+        };
+
+
+
         function mediaQuery(){
             // si la funcion devuelve verdadero dara menu para celular
             if (consulta.matches){
@@ -141,23 +155,25 @@
                 console.log('No se cumplio la consicion');
 
             }
-        }    
+        }   
         mediaQuery();
 
         // lazy loading - permite cargar imagenes en una web poco a poco. 
         var bLazy = new Blazy({
-        // options - que selector queremos que se cargue
             selector:'img'
-
         });
 
-        $burguerbutton.addEventListener('touchstart', toggleMenu);
+        //  $burguerbutton.addEventListener('touchstart', toggleMenu);
+        // function toggleMenu(){
+        //     $menu.classList.toggle('active')
+        // };
 
-    
-        // declaramos un tooglemenu
-        function toggleMenu(){
-            $menu.classList.toggle('active')
-        };
+        // gestos touch
+        var $body = document.body;
+
+        var gestos = new Hammer($body);
+        gestos.on('swipeleft', hideMenu);
+        gestos.on('swiperight', showMenu);
     </script>
 </body>
 </html>

@@ -9,15 +9,14 @@
     
     <title>Precios de tus mejores Guitarras!!</title>
 </head>
-<body>
-   
+<body class="precios">
     <header id="header" class="header background">  <!--header -->
         <div class="contenedor">
             <figure class="logotipo">  <!-- logotipo -->
                 <img src="images/invie.png" width="186" height="60" alt="Invie logotipo"> 
             </figure>
-        </dic>
-        <nav class="menu"> <!-- menu -->
+        <span class="burguer-button icon-menu" id="burguer-button"></span>
+        <nav class="menu" id="menu"> <!-- menu -->
         <ul>
             <li >
                 <a href="index.html">Home</a>
@@ -30,6 +29,7 @@
             </li>
         </ul>
         </nav>
+    </div>
     </header>
  
     <section class="tabla">
@@ -40,10 +40,16 @@
                         <th>Modelo </th>
                         <th>Precio </th>
                         <th>Descripción</th>
+                        <th>Modelo </th>
+                        <th>Precio </th>
+                        <th>Descripción</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
+                        <td>Invie Classic</td>
+                        <td>$100000</td>
+                        <td>Una guitarra muy Pro</td> 
                         <td>Invie Classic</td>
                         <td>$100000</td>
                         <td>Una guitarra muy Pro</td>                     
@@ -52,8 +58,14 @@
                         <td>Invie Classic</td>
                         <td>$100000</td>
                         <td>Una guitarra muy Pro</td> 
+                        <td>Invie Classic</td>
+                        <td>$100000</td>
+                        <td>Una guitarra muy Pro</td> 
                     </tr>
                     <tr>
+                        <td>Invie Classic</td>
+                        <td>$100000</td>
+                        <td>Una guitarra muy Pro</td>                        
                         <td>Invie Classic</td>
                         <td>$100000</td>
                         <td>Una guitarra muy Pro</td> 
@@ -109,6 +121,44 @@
         </form>
     </div>
 </footer>
+
+<!-- llamamos a libreria Blazy para cargar imagenes poco a poco.-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/blazy/1.8.2/blazy.min.js"></script>
+
+<script>
+    // se crea funcion para ver si pantalla se agranda o achica para usar el ToggleMenu
+    var consulta = window.matchMedia('(max-width:500px)');
+    consulta.addListener(mediaQuery);
+
+    var $burguerbutton = document.getElementById('burguer-button');
+    var $menu = document.getElementById('menu');
+
+    function toggleMenu(){
+        $menu.classList.toggle('active')
+    };
+    function mediaQuery(){
+        // si la funcion devuelve verdadero dara menu para celular
+        if (consulta.matches){
+        // si se cumple hagamos esto
+            console.log('se cumplio la condicio');
+            $burguerbutton.addEventListener('touchstart', toggleMenu);
+
+        // si no se cumple la condicion entonces no abre menu. 
+        } else {
+            // Si No se cumple hagamos esto
+            $burguerbutton.removeEventListener('touchstart', toggleMenu);
+            console.log('No se cumplio la consicion');
+
+        }
+    }    
+    mediaQuery();
+    // lazy loading - permite cargar imagenes en una web poco a poco. 
+    var bLazy = new Blazy({
+    // options - que selector queremos que se cargue
+        selector:'img'
+
+    });
+</script>
 
 </body>
 </html>
